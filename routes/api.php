@@ -13,6 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/** @var Illuminate\Routing\Router $router */
+$router = app('Illuminate\Routing\Router');
+
+$router->group(['middleware' => ['guest:api']], function () use ($router) {
+    $router->post('/login', 'AuthController@login')->name('auth-login');
 });
+$router->group(['middleware' => ['auth:api']], function () use ($router) {
+    $router->get('/me', 'AuthController@me')->name('auth-me');
+});
+
+
+
