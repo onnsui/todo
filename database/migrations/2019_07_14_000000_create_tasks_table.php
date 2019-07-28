@@ -15,9 +15,12 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('content');
+            $table->string('title', 50);
+            $table->string('content', 500);
             $table->dateTime('due_date');
+            $table->integer('status')->default(1);
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }
