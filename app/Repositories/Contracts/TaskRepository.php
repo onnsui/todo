@@ -18,4 +18,12 @@ interface TaskRepository
      * @return self
      */
     public function whereSearch(string $search = null);
+
+    /**
+     * タスクを作成する
+     *
+     * @param array $data
+     * @return self
+     */
+    public function storeTask(array $data);
 }
