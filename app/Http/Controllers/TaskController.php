@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Contracts\TaskRepository;
 use Illuminate\Http\Request;
+use App\Repositories\Contracts\TaskRepository;
 
 class TaskController extends Controller
 {
@@ -21,9 +21,10 @@ class TaskController extends Controller
         $this->taskRepository = $taskRepository;
     }
 
-    public function index(Request $request) {
+    public function index(request $request)
+    {
         $tasks = $this->taskRepository
-            ->whereSearch($request);
+            ->whereSearch($request->input('search'));
 
         return $tasks;
     }

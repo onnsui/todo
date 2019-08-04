@@ -3,14 +3,19 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\TaskRepository;
-use DB;
+use App\Task;
 
 class TaskRepositoryEloquent implements TaskRepository
 {
-    protected $table = 'tasks';
 
     public function whereSearch(string $search = null)
     {
-        return DB::table($this->table)->get();
+        if (!$search) {
+            return $this;
+        }
+        $tasks = Task::where('title', 'like', "%${search}%")
+            ->get();
+
+        return $tasks;
     }
 }
