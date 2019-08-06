@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTask;
+use App\Task;
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\TaskRepository;
 
@@ -22,6 +23,10 @@ class TaskController extends Controller
         $this->taskRepository = $taskRepository;
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function index(request $request)
     {
         $tasks = $this->taskRepository
@@ -30,6 +35,10 @@ class TaskController extends Controller
         return $tasks;
     }
 
+    /**
+     * @param CreateTask $request
+     * @return mixed
+     */
     public function store(CreateTask $request)
     {
         $task = $this->taskRepository->storeTask($request->all());
