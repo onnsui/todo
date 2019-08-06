@@ -32,13 +32,7 @@ class TaskRepositoryEloquent implements TaskRepository
     public function storeTask(array $data)
     {
         $task = new Task;
-        $task->title = $data['title'];
-        $task->content = $data['content'];
-        $task->due_date = $data['due_date'];
-        $task->status = $data['status'];
-        $task->category_id = $data['category_id'];
-
-        $task->save();
+        $task->fill($data)->save();
 
         return $task;
     }
