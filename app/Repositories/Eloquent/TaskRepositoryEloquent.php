@@ -7,17 +7,6 @@ use App\Task;
 
 class TaskRepositoryEloquent implements TaskRepository
 {
-
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Task::class;
-    }
-
     public function whereSearch(string $search = null)
     {
         if (!$search) {
