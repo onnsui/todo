@@ -7,17 +7,28 @@ jobs:
   build:
     docker:
     # specify the version you desire here
-    #- image: circleci/php:7.1.5-browsers
-    - image: circleci/php:7.3-stretch-node-browsers
-    working_directory: ~/todo
+    - image: circleci/php:7.2.1-apache-node-browsers
+    - image: circleci/mysql:5.7
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
     # documented at https://circleci.com/docs/2.0/circleci-images/
     # - image: circleci/mysql:9.4
 
+    environment:
+    - APP_DEBUG: true
+    - APP_ENV: local
+    - APP_KEY: base64:vA9uTIoN50LeXBxTfcHNAqdmrWFWJt/oqHVdn6BS3O0=
+    - DB_CONNECTION: mysql
+    - MYSQL_ALLOW_EMPTY_PASSWORD: true
+
+    working_directory: ~/repo
+
     steps:
     - checkout
+
+    # Install PHP Extension
+    - run: sudo docker-php-ext-install pdo_mysql
 
     # Download and cache dependencies
     - restore_cache:
@@ -33,6 +44,9 @@ jobs:
         - ./vendor
         key: v1-dependencies-{{ checksum "composer.json" }}
 
+    # run seeding
+    - run: php artisan migrate
+    - run: php artisan db:seed
+
     # run tests!
-    #- run: phpunit
-    - run: vendor/phpunit/phpunit/phpunit tests/
+    - run: php ./vendor/bin/phpunit
