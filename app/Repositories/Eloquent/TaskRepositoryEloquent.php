@@ -11,7 +11,7 @@ class TaskRepositoryEloquent implements TaskRepository
     public function whereSearch(string $search = null)
     {
         if (!$search) {
-            return $this;
+            return Task::all();
         }
         $tasks = Task::where('title', 'like', "%${search}%")
             ->get();
