@@ -10,11 +10,6 @@ $factory->define(Task::class, function (Faker $faker) {
         'content' => $faker->word,
         'due_date' => $faker->dateTime,
         'status' => $faker->randomDigit,
+        'category_id' => $faker->randomElement(array_keys(config('master.category'))),
     ];
-});
-
-$factory->afterCreating(Task::class, function ($task) {
-    factory(Category::class)->create([
-        'category_id' => $task->category_id,
-    ]);
 });
