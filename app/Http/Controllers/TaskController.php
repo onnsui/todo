@@ -25,7 +25,7 @@ class TaskController extends Controller
 
     /**
      * @param Request $request
-     * @return mixed
+     * @return Task
      */
     public function index(request $request)
     {
@@ -37,7 +37,7 @@ class TaskController extends Controller
 
     /**
      * @param CreateTask $request
-     * @return mixed
+     * @return Task
      */
     public function store(CreateTask $request)
     {
