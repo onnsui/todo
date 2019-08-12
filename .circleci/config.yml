@@ -19,12 +19,7 @@ jobs:
     - APP_DEBUG: true
     - APP_ENV: local
     - APP_KEY: base64:vA9uTIoN50LeXBxTfcHNAqdmrWFWJt/oqHVdn6BS3O0=
-    - DB_CONNECTION: mysql
-    - DB_HOST: 127.0.0.1
-    - DB_PORT: 3307
-    - DB_DATABASE: todo
-    - DB_USERNAME: todo
-    - DB_PASSWORD: secret
+    - DB_CONNECTION: todo
     - MYSQL_ALLOW_EMPTY_PASSWORD: true
 
     working_directory: ~/repo
