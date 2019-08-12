@@ -19,7 +19,7 @@ jobs:
     - APP_DEBUG: true
     - APP_ENV: local
     - APP_KEY: base64:vA9uTIoN50LeXBxTfcHNAqdmrWFWJt/oqHVdn6BS3O0=
-    - DB_CONNECTION: todo
+    - DB_CONNECTION: todo_db_1
     - MYSQL_ALLOW_EMPTY_PASSWORD: true
 
     working_directory: ~/repo
