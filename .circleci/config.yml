@@ -54,7 +54,7 @@ jobs:
 
     # run tests!
     - run: php ./vendor/bin/phpunit
-    - run: cp storage/logs/laravel.log $CIRCLE_TEST_ARTIFACTS
+    - run: if [[ -f storage/logs/laravel.log ]]; then; cp storage/logs/laravel.log $CIRCLE_TEST_ARTIFACTS ; fi
     - run:
         command: |
           cp storage/logs/laravel.log $CIRCLE_TEST_ARTIFACTS
