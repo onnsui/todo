@@ -8,6 +8,8 @@ jobs:
     docker:
     # specify the version you desire here
     - image: circleci/php:7.3-stretch-node-browsers
+      environment:
+        CIRCLE_TEST_ARTIFACTS: /tmp/artifacts
     - image: circleci/mysql:5.7
       environment:
         MYSQL_ROOT_PASSWORD: root
@@ -25,6 +27,8 @@ jobs:
 
     steps:
     - checkout
+    - run: mkdir -p $CIRCLE_TEST_ARTIFACTS
+
     - run: cp .env.circleci .env
 
     # Install PHP Extension
@@ -50,3 +54,10 @@ jobs:
 
     # run tests!
     - run: php ./vendor/bin/phpunit
+    - run: cp storage/logs/laravel.log $CIRCLE_TEST_ARTIFACTS
+    - run:
+        command: |
+          cp storage/logs/laravel.log $CIRCLE_TEST_ARTIFACTS
+        when: on_fail
+    - store_artifacts:
+        path: /tmp/artifacts
