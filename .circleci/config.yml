@@ -8,15 +8,6 @@ jobs:
     docker:
     # specify the version you desire here
     - image: circleci/php:7.3-stretch-node-browsers
-      environment:
-        APP_DEBUG: true
-        APP_ENV: local
-        APP_KEY: base64:vA9uTIoN50LeXBxTfcHNAqdmrWFWJt/oqHVdn6BS3O0=
-        DB_DATABASE: todo
-        DB_USER: todo
-        DB_PASSWORD: secret
-        DB_ROOT_PASSWORD: root
-        DB_ALLOW_EMPTY_PASSWORD: true
     - image: circleci/mysql:5.7
 
     # Specify service dependencies here if necessary
@@ -28,6 +19,7 @@ jobs:
 
     steps:
     - checkout
+    - run: cp .env.circleci .env
 
     # Install PHP Extension
     - run: sudo docker-php-ext-install pdo_mysql
