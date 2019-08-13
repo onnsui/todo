@@ -9,30 +9,20 @@ jobs:
     # specify the version you desire here
     - image: circleci/php:7.3-stretch-node-browsers
       environment:
-      - APP_DEBUG: true
-      - APP_ENV: local
-      - APP_KEY: base64:vA9uTIoN50LeXBxTfcHNAqdmrWFWJt/oqHVdn6BS3O0=
-      - MYSQL_DATABASE: todo
-      - MYSQL_USER: todo
-      - MYSQL_PASSWORD: secret
-      - MYSQL_ROOT_PASSWORD: root
-      - MYSQL_ALLOW_EMPTY_PASSWORD: true
+        APP_DEBUG: true
+        APP_ENV: local
+        APP_KEY: base64:vA9uTIoN50LeXBxTfcHNAqdmrWFWJt/oqHVdn6BS3O0=
+        DB_DATABASE: todo
+        DB_USER: todo
+        DB_PASSWORD: secret
+        DB_ROOT_PASSWORD: root
+        DB_ALLOW_EMPTY_PASSWORD: true
     - image: circleci/mysql:5.7
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
     # documented at https://circleci.com/docs/2.0/circleci-images/
     # - image: circleci/mysql:9.4
-
-    environment:
-    - APP_DEBUG: true
-    - APP_ENV: local
-    - APP_KEY: base64:vA9uTIoN50LeXBxTfcHNAqdmrWFWJt/oqHVdn6BS3O0=
-    - MYSQL_DATABASE: todo
-    - MYSQL_USER: todo
-    - MYSQL_PASSWORD: secret
-    - MYSQL_ROOT_PASSWORD: root
-    - MYSQL_ALLOW_EMPTY_PASSWORD: true
 
     working_directory: ~/repo
 
