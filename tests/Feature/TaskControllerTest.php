@@ -9,11 +9,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TaskControllerTest extends TestCase
 {
-//    public function setUp()
-//    {
-//        parent::setUp();
-//    }
-
     /**
      * @test
      */
