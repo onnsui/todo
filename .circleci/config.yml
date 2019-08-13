@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
     # specify the version you desire here
-    - image: circleci/php:7.3-stretch-node-browsers
+    - image: circleci/php:7.2-stretch-node-browsers
       environment:
         CIRCLE_TEST_ARTIFACTS: /tmp/artifacts
     - image: circleci/mysql:5.7
