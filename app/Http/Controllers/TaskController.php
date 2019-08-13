@@ -6,6 +6,7 @@ use App\Http\Requests\CreateTask;
 use App\Task;
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\TaskRepository;
+use Illuminate\Support\Collection;
 
 class TaskController extends Controller
 {
@@ -25,9 +26,9 @@ class TaskController extends Controller
 
     /**
      * @param Request $request
-     * @return Task
+     * @return Collection
      */
-    public function index(request $request)
+    public function index(request $request): Collection
     {
         $tasks = $this->taskRepository
             ->whereSearch($request->input('search'));
@@ -39,7 +40,7 @@ class TaskController extends Controller
      * @param CreateTask $request
      * @return Task
      */
-    public function store(CreateTask $request)
+    public function store(CreateTask $request): Task
     {
         $task = $this->taskRepository->storeTask($request->all());
 
