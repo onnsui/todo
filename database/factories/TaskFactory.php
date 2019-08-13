@@ -10,6 +10,9 @@ $factory->define(Task::class, function (Faker $faker) {
         'content' => $faker->word,
         'due_date' => $faker->dateTime,
         'status' => $faker->randomDigit,
-        'category_id' => $faker->randomElement(array_keys(config('master.category'))),
+        'category_id'  => function () {
+            return factory(Category::class)->create()->id;
+        },
+//        'category_id' => $faker->randomElement(array_keys(config('master.category'))),
     ];
 });
