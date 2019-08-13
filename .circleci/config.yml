@@ -9,6 +9,12 @@ jobs:
     # specify the version you desire here
     - image: circleci/php:7.3-stretch-node-browsers
     - image: circleci/mysql:5.7
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: todo
+        MYSQL_USER: todo
+        MYSQL_PASSWORD: secret
+        TZ: 'Asia/Tokyo'
 
     # Specify service dependencies here if necessary
     # CircleCI maintains a library of pre-built images
