@@ -11,4 +11,8 @@ class Task extends Model
         '2' => 'private',
         '3' => 'other'
     ];
+  
+    protected $fillable = [
+        'title', 'content', 'due_date', 'status', 'category_id'
+    ];
 }
