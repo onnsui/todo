@@ -25,8 +25,9 @@ class TaskControllerTest extends TestCase
      */
     public function 検索条件付き一覧取得のテスト()
     {
+        $searchKeyword = '12345678';
         $tasks = factory(Task::class, 2)->create([
-            'title' => '12345678',
+            'title' => $searchKeyword,
         ]);
 
         //　検索でヒットしないCompany
@@ -35,7 +36,7 @@ class TaskControllerTest extends TestCase
         ]);
 
         $res = $this->getJson(route('task-index', [
-            'search' => '12345678'
+            'search' => $searchKeyword
         ]));
         $res->assertStatus(200);
 
