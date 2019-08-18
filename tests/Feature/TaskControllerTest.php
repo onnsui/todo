@@ -18,6 +18,9 @@ class TaskControllerTest extends TestCase
 
         $res = $this->getJson(route('task-index'));
         $res->assertStatus(200);
+
+        $this->assertEquals($tasks->count(), count(json_decode($res->content(), true)));
+
     }
 
     /**
