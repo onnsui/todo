@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTask;
 use App\Task;
-use Illuminate\Http\Request;
 use App\Repositories\Contracts\TaskRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -42,7 +43,8 @@ class TaskController extends Controller
      */
     public function store(CreateTask $request): Task
     {
-        $task = $this->taskRepository->storeTask($request->all());
+        $userId = auth()->id();
+        $task = $this->taskRepository->storeTask(collect($request->all()), $userId);
 
         return $task;
     }

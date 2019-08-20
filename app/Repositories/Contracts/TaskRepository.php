@@ -3,6 +3,7 @@
 namespace App\Repositories\Contracts;
 
 use App\Task;
+use Illuminate\Support\Collection;
 
 /**
  * Interface TaskRepository
@@ -24,8 +25,9 @@ interface TaskRepository
     /**
      * タスクを作成する
      *
-     * @param array $data
+     * @param int $userId
+     * @param Collection $data
      * @return Task
      */
-    public function storeTask(array $data);
+    public function storeTask(Collection $data, int $userId);
 }
