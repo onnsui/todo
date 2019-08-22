@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Task;
+use App\Category;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -45,4 +46,24 @@ class TaskControllerTest extends TestCase
 
         $this->assertEquals($tasks->count(), count(json_decode($res->content(), true)));
     }
+
+    /**
+     * @test
+     */
+    public function タスク作成のテスト()
+    {
+        $task = factory(Task::class)->make()->toArray();
+        $category = factory(Category::class)->create();
+        $param = [
+          'title' => $task['title'],
+          'content' => $task['content'],
+          'due_date' => $task['due_date'],
+          'status' => $task['status'],
+          'category_id' => $category->id,
+        ];
+        $res = $this->postJson(route('task-store'), $param);
+
+        $res->assertStatus(201);
+    }
 }
+
