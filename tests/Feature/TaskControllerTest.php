@@ -54,16 +54,23 @@ class TaskControllerTest extends TestCase
     {
         $task = factory(Task::class)->make()->toArray();
         $category = factory(Category::class)->create();
-        $param = [
+        $params = [
           'title' => $task['title'],
           'content' => $task['content'],
           'due_date' => $task['due_date'],
           'status' => $task['status'],
           'category_id' => $category->id,
         ];
-        $res = $this->postJson(route('task-store'), $param);
+        $res = $this->postJson(route('task-store'), $params);
 
         $res->assertStatus(201);
+        $task = Task::find(1);
+        foreach ($params as $key => $param)
+        {
+            $this->assertEquals($params[$key], $task->$key);
+//            $this->assertEquals($params[$param], $task->);
+        }
+        $this->assertEquals(1, $task->user_id);
     }
 }
 
