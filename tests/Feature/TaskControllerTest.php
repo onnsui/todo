@@ -68,7 +68,6 @@ class TaskControllerTest extends TestCase
         foreach ($params as $key => $param)
         {
             $this->assertEquals($params[$key], $task->$key);
-//            $this->assertEquals($params[$param], $task->);
         }
         $this->assertEquals(1, $task->user_id);
     }
