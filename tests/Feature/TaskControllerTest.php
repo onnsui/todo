@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Tests\TestCase;
 use App\Task;
 use App\Category;
@@ -10,6 +11,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TaskControllerTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->user = factory(User::class)->create();
+        $this->actingAs($this->user);
+    }
     /**
      * @test
      */
@@ -64,12 +71,12 @@ class TaskControllerTest extends TestCase
         $res = $this->postJson(route('task-store'), $params);
 
         $res->assertStatus(201);
-        $task = Task::find(1);
+        $createdTask = Task::first();
         foreach ($params as $key => $param)
         {
-            $this->assertEquals($params[$key], $task->$key);
+            $this->assertEquals($params[$key], $createdTask->$key);
         }
-        $this->assertEquals(1, $task->user_id);
+        $this->assertEquals($this->user->id, $createdTask->user_id);
     }
 }
 
