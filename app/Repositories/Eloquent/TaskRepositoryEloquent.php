@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\TaskRepository;
 use App\Task;
+use Illuminate\Support\Collection;
 
 class TaskRepositoryEloquent implements TaskRepository
 {
@@ -23,14 +24,13 @@ class TaskRepositoryEloquent implements TaskRepository
     }
 
     /**
-     * @param array $data
+     * @param int $userId
+     * @param Collection $data
      * @return Task
      */
-    public function storeTask(array $data)
+    public function storeTask(Collection $data, int $userId)
     {
-        $task = new Task;
-        $task->fill($data)->save();
-
-        return $task;
+        $param = $data->merge(['user_id' => $userId]);
+        return Task::create($param->all());
     }
 }
