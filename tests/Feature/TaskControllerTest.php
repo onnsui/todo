@@ -6,6 +6,7 @@ use App\User;
 use Tests\TestCase;
 use App\Task;
 use App\Category;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -77,5 +78,32 @@ class TaskControllerTest extends TestCase
         $this->assertEquals($params['due_date'], $createdTask->due_date);
         $this->assertEquals($params['status'], $createdTask->status);
         $this->assertEquals($this->user->id, $createdTask->user_id);
+    }
+
+    /**
+     * @test
+     */
+    public function タスク編集のテスト()
+    {
+        $task = factory(Task::class)->create();
+        $categories = factory(Category::class, 2)->create();
+        $params = [
+            'title' => str_repeat('a', 50),
+            'content' => str_repeat('a', 255),
+            'due_date' => Carbon::yesterday()->toDateTimeString(),
+            'status' => array_rand(Task::STATUS_LIST),
+            'category_ids' => $categories->pluck('id'),
+        ];
+        $res = $this->putJson(route('task-update', $task->id), $params);
+
+        $res->assertStatus(201);
+        $editedTask = Task::first();
+
+        $this->assertEquals($params['title'], $editedTask->title);
+        $this->assertEquals($params['content'], $editedTask->content);
+        $this->assertEquals($params['due_date'], $editedTask->due_date);
+        $this->assertEquals($params['status'], $editedTask->status);
+        $this->assertEquals($this->user->id, $editedTask->user_id);
+
     }
 }
