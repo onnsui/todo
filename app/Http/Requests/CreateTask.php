@@ -28,7 +28,7 @@ class CreateTask extends FormRequest
             'content' => 'required|max:255',
             'due_date' => 'required|date|after_or_equal:today',
             'status' => 'required|integer',
-            'category_id' => 'required|integer',
+            'category_ids' => 'required|array',
         ];
     }
 
