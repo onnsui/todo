@@ -71,13 +71,11 @@ class TaskControllerTest extends TestCase
 
         $res->assertStatus(201);
         $createdTask = Task::first();
-        $createdTaskCategoryIds = $createdTask->categories->pluck('pivot')->pluck('category_id');
 
         $this->assertEquals($params['title'], $createdTask->title);
         $this->assertEquals($params['content'], $createdTask->content);
         $this->assertEquals($params['due_date'], $createdTask->due_date);
         $this->assertEquals($params['status'], $createdTask->status);
-        $this->assertEquals($params['category_ids'], $createdTaskCategoryIds);
         $this->assertEquals($this->user->id, $createdTask->user_id);
     }
 }
