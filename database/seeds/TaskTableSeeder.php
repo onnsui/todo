@@ -15,7 +15,7 @@ class TaskTableSeeder extends Seeder
     {
         foreach (range(1, 3) as $num){
             DB::table('tasks')->insert([
-                'category_id' => 1,
+                'category_ids' => [1],
                 'title' => "サンプルタスク {$num}",
                 'content' => "タスク内容 {$num}",
                 'status' => $num,
