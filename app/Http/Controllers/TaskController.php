@@ -45,6 +45,7 @@ class TaskController extends Controller
         $userId = auth()->id();
         $data = $request->validated();
         $task = $this->taskRepository->storeTask(collect($data), $userId);
+        $task->categories()->attach($request->category_ids);
 
         return $task;
     }
