@@ -15,8 +15,10 @@ $factory->define(Task::class, function (Faker $faker) {
         'content' => $faker->word,
         'due_date' => Carbon::tomorrow()->toDateTimeString(),
         'status' => array_rand(Task::STATUS_LIST),
-        'category_id'  => function () {
-            return factory(Category::class)->create()->id;
-        },
     ];
+});
+
+$factory->afterCreating(Task::class, function (Task $task) {
+    $tags = factory(Category::class, 3)->create();
+    $task->categories()->sync($tags);
 });
