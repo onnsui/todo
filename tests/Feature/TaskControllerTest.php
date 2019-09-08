@@ -59,24 +59,25 @@ class TaskControllerTest extends TestCase
     public function タスク作成のテスト()
     {
         $task = factory(Task::class)->make()->toArray();
-        $categoryA = factory(Category::class)->create();
-        $categoryB = factory(Category::class)->create();
+        $categoryIds = factory(Category::class, 2)->create()->pluck('id');
         $params = [
           'title' => $task['title'],
           'content' => $task['content'],
           'due_date' => $task['due_date'],
           'status' => $task['status'],
-          'category_ids' => [$categoryA->id, $categoryB->id],
+          'category_ids' => $categoryIds,
         ];
         $res = $this->postJson(route('task-store'), $params);
 
         $res->assertStatus(201);
         $createdTask = Task::first();
+        $createdTaskCategoryIds = $createdTask->categories->pluck('pivot')->pluck('category_id');
 
         $this->assertEquals($params['title'], $createdTask->title);
         $this->assertEquals($params['content'], $createdTask->content);
         $this->assertEquals($params['due_date'], $createdTask->due_date);
         $this->assertEquals($params['status'], $createdTask->status);
+        $this->assertEquals($params['category_ids'], $createdTaskCategoryIds);
         $this->assertEquals($this->user->id, $createdTask->user_id);
     }
 }
