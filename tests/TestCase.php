@@ -5,7 +5,6 @@ namespace Tests;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Tests\TestHelper\MyRefreshDatabase;
 
-
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;

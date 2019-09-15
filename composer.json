@@ -7,14 +7,17 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
+        "friendsofphp/php-cs-fixer": "^2.15",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "squizlabs/php_codesniffer": "^3.4",
         "tymon/jwt-auth": "^1.0.0-rc.3"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
+        "nunomaduro/larastan": "^0.4.0",
         "phpunit/phpunit": "^7.5"
     },
     "autoload": {
@@ -47,7 +50,10 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
-        ]
+        ],
+        "lint": "vendor/bin/phpcs --standard=phpcs.xml -p",
+        "fix": "vendor/bin/phpcbf --standard=phpcs.xml -p",
+        "larastan": "@php artisan code:analyse --level=1 --error-format table"
     },
     "config": {
         "preferred-install": "dist",

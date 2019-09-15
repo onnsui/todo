@@ -26,6 +26,6 @@ class TaskServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Repositories\Contracts\TaskRepository::class,
             \App\Repositories\Eloquent\TaskRepositoryEloquent::class
-    );
+        );
     }
 }
