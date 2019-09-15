@@ -104,6 +104,5 @@ class TaskControllerTest extends TestCase
         $this->assertEquals($params['due_date'], $editedTask->due_date);
         $this->assertEquals($params['status'], $editedTask->status);
         $this->assertEquals($this->user->id, $editedTask->user_id);
-
     }
 }
