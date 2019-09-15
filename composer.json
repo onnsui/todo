@@ -15,6 +15,7 @@
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
+        "nunomaduro/larastan": "^0.4.0",
         "phpunit/phpunit": "^7.5"
     },
     "autoload": {
@@ -47,7 +48,8 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
-        ]
+        ],
+        "larastan": "@php artisan code:analyse --level=1 --error-format table"
     },
     "config": {
         "preferred-install": "dist",
