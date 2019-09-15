@@ -49,4 +49,21 @@ class TaskController extends Controller
 
         return $task;
     }
+
+    /**
+     * @param CreateTask $request
+     * @param int $taskId
+     * @return Task
+     */
+    public function update(CreateTask $request, int $taskId): Task
+    {
+        $userId = auth()->id();
+        $data = $request->validated();
+        $task = $this->taskRepository->find($taskId);
+
+        $taskData = $this->taskRepository->updateTask(collect($data), $userId, $taskId);
+        $taskData->categories()->attach($request->category_ids);
+
+        return $task;
+    }
 }

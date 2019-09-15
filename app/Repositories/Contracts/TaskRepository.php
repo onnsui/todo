@@ -25,9 +25,27 @@ interface TaskRepository
     /**
      * タスクを作成する
      *
-     * @param int $userId
      * @param Collection $data
+     * @param int $userId
      * @return Task
      */
     public function storeTask(Collection $data, int $userId);
+
+    /**
+     * タスクを編集する
+     *
+     * @param Collection $data
+     * @param int $userId
+     * @param int $taskId
+     * @return Task
+     */
+    public function updateTask(Collection $data, int $userId, int $taskId);
+
+    /**
+     * タスクをID検索する
+     *
+     * @param int $taskId
+     * @return Task
+     */
+    public function find(int $taskId);
 }
