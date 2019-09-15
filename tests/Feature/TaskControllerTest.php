@@ -28,7 +28,6 @@ class TaskControllerTest extends TestCase
         $res->assertStatus(200);
 
         $this->assertEquals($tasks->count(), count(json_decode($res->content(), true)));
-
     }
 
     /**
@@ -72,11 +71,9 @@ class TaskControllerTest extends TestCase
 
         $res->assertStatus(201);
         $createdTask = Task::first();
-        foreach ($params as $key => $param)
-        {
+        foreach ($params as $key => $param) {
             $this->assertEquals($params[$key], $createdTask->$key);
         }
         $this->assertEquals($this->user->id, $createdTask->user_id);
     }
 }
-
