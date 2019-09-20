@@ -8,6 +8,7 @@ use App\Repositories\Contracts\TaskRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class TaskController extends Controller
 {
@@ -70,5 +71,24 @@ class TaskController extends Controller
         $taskData->categories()->attach($request->category_ids);
 
         return $task;
+    }
+
+    /**
+     * @param int $taskId
+     * @return resource
+     * @throws AuthorizationException
+     */
+    public function delete(int $taskId)
+    {
+        $userId = auth()->id();
+        $task = $this->taskRepository->find($taskId);
+
+        if ($userId !== $task->user_id) {
+            throw new AuthorizationException('Cannot delete yourself.');
+        }
+
+        $this->taskRepository->deleteTask($task);
+
+        return response([], 204);
     }
 }

@@ -42,6 +42,14 @@ interface TaskRepository
     public function updateTask(Collection $data, int $userId, Task $task);
 
     /**
+     * タスクを削除する
+     *
+     * @param Task $task
+     * @return Task
+     */
+    public function deleteTask(Task $task);
+
+    /**
      * タスクをID検索する
      *
      * @param int $taskId

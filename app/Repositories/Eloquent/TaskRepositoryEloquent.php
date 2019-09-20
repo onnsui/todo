@@ -49,6 +49,18 @@ class TaskRepositoryEloquent implements TaskRepository
     }
 
     /**
+     * @param Task $task
+     * @return Task
+     */
+    public function deleteTask(Task $task)
+    {
+        \DB::transaction(function () use ($task) {
+            $task->categories()->detach();
+            $task->delete();
+        });
+    }
+
+    /**
      * @param int $taskId
      * @return Task
      */
