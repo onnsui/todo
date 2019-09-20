@@ -67,6 +67,7 @@ class TaskController extends Controller
         }
 
         $taskData = $this->taskRepository->updateTask(collect($data), $userId, $task);
+        $taskData->categories()->delete();
         $taskData->categories()->attach($request->category_ids);
 
         return $task;
