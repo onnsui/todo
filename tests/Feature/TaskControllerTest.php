@@ -107,4 +107,20 @@ class TaskControllerTest extends TestCase
         $this->assertEquals($params['status'], $editedTask->status);
         $this->assertEquals($this->user->id, $editedTask->user_id);
     }
+
+    /**
+     * @test
+     */
+    public function タスク削除のテスト()
+    {
+        $task = factory(Task::class)->create([
+            'user_id' => $this->user->id,
+        ]);
+        $categories = factory(Category::class, 2)->create();
+        $res = $this->delete(route('task-delete', $task->id));
+
+        $res->assertStatus(204);
+
+        $this->assertNull(Task::find($task->id));
+    }
 }
