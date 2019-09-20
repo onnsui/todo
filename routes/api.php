@@ -29,3 +29,10 @@ $router->group(['prefix' => 'task'], function () use ($router) {
     $router->put('{taskId}', 'TaskController@update')->name('task-update');
     $router->delete('{taskId}', 'TaskController@delete')->name('task-delete');
 });
+
+$router->group(['prefix' => 'category'], function () use ($router) {
+    $router->get('', 'CategoryController@index')->name('category-index');
+    $router->post('', 'CategoryController@store')->name('category-store');
+    $router->put('{categoryId}', 'CategoryController@update')->name('category-update');
+    $router->delete('{categoryId}', 'CategoryController@delete')->name('category-delete');
+});
