@@ -19,6 +19,6 @@ $factory->define(Task::class, function (Faker $faker) {
 });
 
 $factory->afterCreating(Task::class, function (Task $task) {
-    $tags = factory(Category::class, 3)->create();
-    $task->categories()->sync($tags);
+    $categories = factory(Category::class, 3)->create();
+    $task->categories()->sync($categories);
 });
