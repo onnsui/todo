@@ -7,6 +7,7 @@ use App\Task;
 use App\Repositories\Contracts\TaskRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class TaskController extends Controller
 {
@@ -61,7 +62,11 @@ class TaskController extends Controller
         $data = $request->validated();
         $task = $this->taskRepository->find($taskId);
 
-        $taskData = $this->taskRepository->updateTask(collect($data), $userId, $taskId);
+        if ($userId !== $task->user_id) {
+            throw new AccessDeniedHttpException('access forbidden.');
+        }
+
+        $taskData = $this->taskRepository->updateTask(collect($data), $userId, $task);
         $taskData->categories()->attach($request->category_ids);
 
         return $task;

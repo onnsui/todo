@@ -36,10 +36,10 @@ interface TaskRepository
      *
      * @param Collection $data
      * @param int $userId
-     * @param int $taskId
+     * @param Task $task
      * @return Task
      */
-    public function updateTask(Collection $data, int $userId, int $taskId);
+    public function updateTask(Collection $data, int $userId, Task $task);
 
     /**
      * タスクをID検索する

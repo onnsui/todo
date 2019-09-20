@@ -37,13 +37,15 @@ class TaskRepositoryEloquent implements TaskRepository
     /**
      * @param Collection $data
      * @param int $userId
-     * @param int $taskId
+     * @param Task $task
      * @return Task
      */
-    public function updateTask(Collection $data, int $userId, int $taskId)
+    public function updateTask(Collection $data, int $userId, Task $task)
     {
-        $param = $data->merge(['user_id' => $userId]);
-        return Task::create($param->all());
+        \DB::transaction(function () use ($task, $data) {
+            $task->fill($data->toArray())->save();
+        });
+        return $task;
     }
 
     /**
@@ -52,7 +54,7 @@ class TaskRepositoryEloquent implements TaskRepository
      */
     public function find(int $taskId)
     {
-        $param = $data->merge(['user_id' => $userId]);
-        return Task::create($param->all());
+        $task = Task::findOrFail($taskId);
+        return $task;
     }
 }
