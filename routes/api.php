@@ -26,5 +26,5 @@ $router->group(['middleware' => ['auth:api']], function () use ($router) {
 $router->group(['prefix' => 'task'], function () use ($router) {
     $router->get('', 'TaskController@index')->name('task-index');
     $router->post('', 'TaskController@store')->name('task-store');
-    $router->post('{taskId}', 'TaskController@update')->name('task-update');
+    $router->put('{taskId}', 'TaskController@update')->name('task-update');
 });
