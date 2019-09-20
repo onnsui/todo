@@ -85,18 +85,20 @@ class TaskControllerTest extends TestCase
      */
     public function タスク編集のテスト()
     {
-        $task = factory(Task::class)->create();
+        $task = factory(Task::class)->create([
+            'user_id' => $this->user->id,
+        ]);
         $categories = factory(Category::class, 2)->create();
         $params = [
             'title' => str_repeat('a', 50),
             'content' => str_repeat('a', 255),
-            'due_date' => Carbon::yesterday()->toDateTimeString(),
+            'due_date' => Carbon::tomorrow()->toDateTimeString(),
             'status' => array_rand(Task::STATUS_LIST),
             'category_ids' => $categories->pluck('id'),
         ];
         $res = $this->putJson(route('task-update', $task->id), $params);
 
-        $res->assertStatus(201);
+        $res->assertStatus(200);
         $editedTask = Task::first();
 
         $this->assertEquals($params['title'], $editedTask->title);
